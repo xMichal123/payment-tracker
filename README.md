@@ -22,8 +22,8 @@ This is an initial version of developer's homework. It can be extended if necess
 EXTENSION SUGGESTIONS:
 1. repository structure can be done in standard way as trunk, branches, tags. I found this not necessary in this version but it can be done if needed.
 2. program can be extended with setting of a decimal separator.
-3. output can go to file.
-4. also GUI can be developed.
-5. also javadoc can be added.
+3. also number of decimal places can be set up.
+4. output can go to file.
+5. also GUI can be developed.
 
 Please contact me if necessary.
