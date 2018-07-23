@@ -137,8 +137,8 @@ public class MoneyHolderTest implements TextConstants  {
             + "ABC 320" + LINE_BREAK
         	+ "CZK -80 (USD -233" + separator + "6)" + LINE_BREAK
         	+ "GBR -200 (USD -300)" + LINE_BREAK
-        	+ "USD 500" + separator + "3" + LINE_BREAK
-        	+ "SVK 150 (USD 531)" + LINE_BREAK,
+        	+ "SVK 150 (USD 531)" + LINE_BREAK
+        	+ "USD 500" + separator + "3" + LINE_BREAK,
         	moneyHolder.toString());
 	}
 }

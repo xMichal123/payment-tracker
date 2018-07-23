@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import main.java.com.mihalik.homework.exceptions.IllegalCurrencyFormatException;
 
@@ -15,7 +16,7 @@ public class MoneyHolder implements TextConstants {
 	private static final String MESSAGE_CURRENCY_LIST = "List of currencies and their amounts:";
 	
 	
-	private Map<String, BigDecimal> currencyAmmountMap = new HashMap<>();
+	private TreeMap<String, BigDecimal> currencyAmmountMap = new TreeMap<>();
 	private Map<String, BigDecimal> currencyRateMap = new HashMap<>();
 	
 	
