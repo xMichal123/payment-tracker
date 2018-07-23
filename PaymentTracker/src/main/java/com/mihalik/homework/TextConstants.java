@@ -1,3 +1,4 @@
+package main.java.com.mihalik.homework;
 
 public interface TextConstants {
 	static String LINE_BREAK = System.getProperty("line.separator");

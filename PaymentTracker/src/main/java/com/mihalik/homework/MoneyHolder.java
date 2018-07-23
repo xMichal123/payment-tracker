@@ -1,10 +1,11 @@
+package main.java.com.mihalik.homework;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import exceptions.IllegalCurrencyFormatException;
+import main.java.com.mihalik.homework.exceptions.IllegalCurrencyFormatException;
 
 public class MoneyHolder implements TextConstants {
 	private static final String SPACE = " ";
@@ -17,10 +18,22 @@ public class MoneyHolder implements TextConstants {
 	private Map<String, BigDecimal> currencyAmmountMap = new HashMap<>();
 	private Map<String, BigDecimal> currencyRateMap = new HashMap<>();
 	
+	
+	/**
+	 * Validates a currency. It must be 3 uppercase letters.
+	 * @param currency currency to validate
+	 * @return true if currency is valid
+	 */
 	private boolean validateCurrency(String currency) {
-		return currency.matches("[A-Z]{3}+");
+		return currency != null && currency.matches("[A-Z]{3}+");
 	}
 	
+	/**
+	 * Adds amount of money.
+	 * @param currency currency
+	 * @param toAdd amount to be added
+	 * @throws IllegalCurrencyFormatException
+	 */
 	public void addAmount(String currency, BigDecimal toAdd) throws IllegalCurrencyFormatException {
 		if (!validateCurrency(currency)) {
 			throw new IllegalCurrencyFormatException();
@@ -37,25 +50,34 @@ public class MoneyHolder implements TextConstants {
 		currencyAmmountMap.put(currency, newValue);
 	}
 	
+	/**
+	 * Adds currency exchange rate compared to USD.
+	 * @param currency currency
+	 * @param toAdd rate to be added
+	 * @throws IllegalCurrencyFormatException
+	 */
 	public void addRate(String currency, BigDecimal toAdd) throws IllegalCurrencyFormatException {
 		if (!validateCurrency(currency)) {
 			throw new IllegalCurrencyFormatException();
 		}
 		
-		BigDecimal currentValue = currencyRateMap.get(currency);
-		
-		if (currentValue == null) {
-			currentValue = new BigDecimal(0);
-		}
-		
 		currencyRateMap.put(currency, toAdd);
 	}
 	
+	/**
+	 * Returns the number in a locale format.
+	 * @param dec number to format
+	 * @return number in local format
+	 */
 	private String toLocaleString(BigDecimal dec) {
 	      DecimalFormat format = new DecimalFormat();
 	      return format.format(dec);
 	}
 	
+	/**
+	 * toString() method overriden. This method prints the output to the console.
+	 * Printed are amounts of currencies which are not equal to zero and their USD equivalent (if available the rate for the currency)
+	 */
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();

@@ -1,3 +1,4 @@
+package main.java.com.mihalik.homework;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,8 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import exceptions.IllegalCurrencyFormatException;
-
+import main.java.com.mihalik.homework.exceptions.IllegalCurrencyFormatException;
+/**
+ * This class handles all the console operations
+ * @author Michal Mihalik
+ *
+ */
 public class ConsoleManager implements TextConstants {
 	
 	private static final char DECIMAL_SEPARATOR;
@@ -39,30 +44,56 @@ public class ConsoleManager implements TextConstants {
 	
 	private MoneyHolder holder;
 	
+	/**
+	 * Constructor. Creates instance of MoneyHolder.
+	 */
 	public ConsoleManager() {
 		holder = new MoneyHolder();
 	}
 
+	/**
+	 * Generates output which is called by a timer task.
+	 */
 	public void generateOutput() {
 		writeToConsole(holder.toString());
 	}
 	
+	/**
+	 * Writes to console a string
+	 * @param toWrite a string to write
+	 */
 	public synchronized void writeToConsole(String toWrite) {
 		System.out.print(toWrite);
 	}
 
+	/**
+	 * Writes to console a string with line break
+	 * @param toWrite a string to write
+	 */
 	public synchronized void writelnToConsole(String toWrite) {
 		writeToConsole(toWrite + LINE_BREAK);
 	}
 	
+	/**
+	 * Writes to error console a string
+	 * @param toWrite a string to write
+	 */
 	public synchronized void errorToConsole(String toWrite) {
 		System.err.print(toWrite);
 	}
 
+	/**
+	 * Writes to error console a string with line break
+	 * @param toWrite a string to write
+	 */
 	public synchronized void errorlnToConsole(String toWrite) {
 		writeToConsole(toWrite + LINE_BREAK);
 	}
 	
+	/**
+	 * This is an user action cycle.
+	 * @throws IOException
+	 */
 	public void userActionCycle() throws IOException {
 		writelnToConsole(MESSAGE_WELCOME);
 		writelnToConsole(MESSAGE_USAGE);
@@ -73,6 +104,14 @@ public class ConsoleManager implements TextConstants {
 		writelnToConsole(MESSAGE_GOODBYE);
 	}
 
+	/**
+	 * This method reads the stream and processes the commands.
+	 * It can be run both from user input or from file or any other input.
+	 * @param in input to read from
+	 * @param printOutput if true, output is printed to console
+	 * @return true if input processed without errors
+	 * @throws IOException
+	 */
 	private boolean readStream(BufferedReader in, boolean printOutput) throws IOException {
 		String line = "";
 		boolean valid = true;
@@ -113,6 +152,7 @@ public class ConsoleManager implements TextConstants {
 							writelnToConsole(MESSAGE_USAGE);
 						}
 						
+						valid = false;
 						continue;
 					}
 					
@@ -125,6 +165,7 @@ public class ConsoleManager implements TextConstants {
 							writelnToConsole(MESSAGE_USAGE);
 						}
 						
+						valid = false;						
 						continue;
 					}
 					
@@ -141,12 +182,15 @@ public class ConsoleManager implements TextConstants {
 					}
 				}
 			} catch (IllegalCurrencyFormatException e) {
+				valid = false;						
 				writelnToConsole(e.getMessage());
 			} catch (Exception e) {
 				if (printOutput) {
 					errorlnToConsole(MESSAGE_WRONG_INPUT);
 					writelnToConsole(MESSAGE_USAGE);
 				}
+				
+				valid = false;
 			}
 		}
 		
@@ -155,6 +199,11 @@ public class ConsoleManager implements TextConstants {
 		return valid;
 	}
 	
+	/**
+	 * Loads and processes a command file.
+	 * @param filename name of file
+	 * @throws IOException
+	 */
 	public void loadFile(String filename) throws IOException {
 		BufferedReader in = new BufferedReader(new FileReader(filename));
 		boolean valid = readStream(in, false);

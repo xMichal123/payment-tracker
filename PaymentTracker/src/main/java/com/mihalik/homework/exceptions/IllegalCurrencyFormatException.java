@@ -1,4 +1,4 @@
-package exceptions;
+package main.java.com.mihalik.homework.exceptions;
 
 public class IllegalCurrencyFormatException extends Exception {
 
